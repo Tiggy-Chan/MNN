@@ -203,8 +203,10 @@ class UpdateChecker(private val context: Context) {
         val length =
             max(latestParts.size.toDouble(), currentParts.size.toDouble()).toInt()
         for (i in 0 until length) {
-            val latestNum = if (i < latestParts.size) latestParts[i].toInt() else 0
-            val currentNum = if (i < currentParts.size) currentParts[i].toInt() else 0
+            val latestVal = if (i < latestParts.size) latestParts[i] else "0"
+            val currentVal = if (i < currentParts.size) currentParts[i] else "0"
+            val latestNum = latestVal.filter { it.isDigit() }.toIntOrNull() ?: 0
+            val currentNum = currentVal.filter { it.isDigit() }.toIntOrNull() ?: 0
             if (latestNum > currentNum) {
                 return true
             } else if (latestNum < currentNum) {

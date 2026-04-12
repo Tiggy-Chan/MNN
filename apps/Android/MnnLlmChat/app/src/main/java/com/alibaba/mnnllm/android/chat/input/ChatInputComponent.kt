@@ -138,7 +138,8 @@ class ChatInputComponent(
     
     private fun setupThinkingMode() {
         val extraTags = ModelListManager.getExtraTags(currentModelId)
-        if (!ModelTypeUtils.isSupportThinkingSwitchByTags(extraTags)) {
+        val isGemma4 = currentModelId.contains("gemma-4", ignoreCase = true) || currentModelId.contains("gemma4", ignoreCase = true)
+        if (!ModelTypeUtils.isSupportThinkingSwitchByTags(extraTags) && !isGemma4) {
             binding.btnToggleThinking.visibility = View.GONE
         } else {
             binding.btnToggleThinking.visibility = View.VISIBLE
@@ -320,7 +321,8 @@ class ChatInputComponent(
 
             override fun onLeaveRecordingMode() {
                 val extraTags = ModelListManager.getExtraTags(currentModelId)
-                if (ModelTypeUtils.isSupportThinkingSwitchByTags(extraTags)) {
+                val isGemma4 = currentModelId.contains("gemma-4", ignoreCase = true) || currentModelId.contains("gemma4", ignoreCase = true)
+                if (ModelTypeUtils.isSupportThinkingSwitchByTags(extraTags) || isGemma4) {
                     binding.btnToggleThinking.visibility = View.VISIBLE
                 }
                 updateAudioOutput()
