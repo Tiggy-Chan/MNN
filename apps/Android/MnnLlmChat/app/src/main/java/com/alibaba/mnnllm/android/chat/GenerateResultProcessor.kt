@@ -106,7 +106,7 @@ class GenerateResultProcessor {
         // --- Format Detection ---
         if (currentFormat == StreamFormat.UNKNOWN) {
             // GPT_OSS tags are very specific and a strong indicator.
-            if (rawStringBuilder.contains("<|message|>") || rawStringBuilder.contains("<|channel|>")) {
+            if (rawStringBuilder.contains("<|message|>") || rawStringBuilder.contains("<|channel>")) {
                 currentFormat = StreamFormat.GPT_OSS
                 Log.d(TAG, "Format detected: GPT_OSS. Reprocessing entire buffer.")
                 // Since we've detected the format, we must re-process the entire buffered content
